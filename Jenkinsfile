@@ -1,5 +1,5 @@
 pipeline {
-   
+   agent{
        stages{
 
    
@@ -26,4 +26,5 @@ pipeline {
             }
         }
     }
+}
 }
