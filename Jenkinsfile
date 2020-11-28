@@ -1,22 +1,22 @@
 pipeline {
-   agent{
-       stages{
+ 
+  agent{
+    stages{
+        stage("clone")
+          {
+          steps{ checkout scm}
 
-   
-        stage('clone') {
-           
-       checkout scm
-        }
-         stage('Build image') {
+          }
+           stage('Build image') {
             steps {
-            
+
             sh ' docker.build("romaric/nginx")'
 
             }
         }
-         stage('Run image') {
+           stage('Run image') {
             steps {
-              
+
              docker.image('romaric/nginx').withRun('-p 81:81')
              {
               c->
@@ -25,6 +25,6 @@ pipeline {
               }
             }
         }
-    }
+}
 }
 }
