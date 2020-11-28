@@ -1,5 +1,6 @@
 pipeline {
-    def app
+   
+       stages{
 
    
         stage('clone') {
@@ -9,7 +10,7 @@ pipeline {
          stage('Build image') {
             steps {
             
-            app= docker.build("romaric/nginx")
+            sh ' docker.build("romaric/nginx")'
 
             }
         }
@@ -24,5 +25,5 @@ pipeline {
               }
             }
         }
-    
+    }
 }
