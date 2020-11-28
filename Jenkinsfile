@@ -1,21 +1,30 @@
 pipeline {
-    agent any
+    def app
 
-    stages {
+   
         stage('clone') {
+            #steps {
+             #   git 'https://github.com/romaricfosso/cd_timesheet.git'
+            #}
+       checkout scm
+        }
+         stage('Build image') {
             steps {
-                git 'https://github.com/romaricfosso/cd_timesheet.git'
+            #sh"javac Main.java"
+            app= docker.build("romaric/nginx")
+
             }
         }
-         stage('run') {
+         stage('Run image') {
             steps {
-            sh"javac Main.java"
+              # sh"java Main"
+             docker.image('romaric/nginx').withRun('-p 81:81')
+             {
+              c->
+              sh 'docker ps'
+              sh 'curl localhost'
+              }
             }
         }
-         stage('Hello') {
-            steps {
-               sh"java Main"
-            }
-        }
-    }
+    
 }
